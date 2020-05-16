@@ -17,7 +17,11 @@ import com.vaadin.flow.server.PWA;
 @CssImport("./styles/shared-styles.css")
 @PWA(
         name = "VaadinCRM",
-        shortName = "CRM"
+        shortName = "CRM",
+        offlineResources = {
+                "./styles/offline.css",
+                "./images/offline.png"
+        }
 )
 public class MainLayout extends AppLayout {
 
