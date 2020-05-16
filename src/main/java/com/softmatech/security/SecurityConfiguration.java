@@ -15,8 +15,8 @@ import org.springframework.security.provisioning.InMemoryUserDetailsManager;
 @Configuration
 public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
 
-    private static final String LOGIN_PROCESSING_URL = "login";
-    private static final String LOGIN_FAILURE_URL = "login?error";
+    private static final String LOGIN_PROCESSING_URL = "/login";
+    private static final String LOGIN_FAILURE_URL = "/login?error";
     private static final String LOGIN_URL = "/login";
     private static final String LOGOUT_SUCCESS_URL = "/login";
 
@@ -34,17 +34,16 @@ public class SecurityConfiguration extends WebSecurityConfigurerAdapter {
                 .loginProcessingUrl(LOGIN_PROCESSING_URL)
                 .failureUrl(LOGIN_FAILURE_URL)
                 .and().logout().logoutSuccessUrl(LOGOUT_SUCCESS_URL);
-        super.configure(http);
     }
 
     @Bean
     @Override
-    public UserDetailsService userDetailsServiceBean() throws Exception {
+    protected UserDetailsService userDetailsService() {
         UserDetails user = User.withUsername("IngAndy")
-                .password("123456")
+                .password("{noop}123456")
                 .roles("USER")
                 .build();
-        return new InMemoryUserDetailsManager();
+        return new InMemoryUserDetailsManager(user);
     }
 
     @Override
